@@ -1,58 +1,51 @@
-// Online Java Compiler
-// Use this editor to write, compile and run your Java code online
 import java.util.*;
 import java.util.stream.Collectors;
-class Employee{
-    int id;
-    int salary;
-    String email;
+class User{
     String name;
-    public Employee(int id,String name,int salary,String email){
-        this.id=id;
-        this.name=name;
-        this.email=email;
-        this.salary=salary;
+    int id;
+    
+    
+   
+    public User(String id,int name){
+        this.name=id;
+        this.id=name;
     }
-    public int getSalary(){
-        return this.salary;
-    }
-    public String getEmail(){
-        return this.email;
+    public int getId(){
+        return this.id;
     }
     public String getName(){
         return this.name;
     }
 }
-
 class HelloWorld {
-    public static void main(String[] args) {
-         List<Employee> em=new ArrayList();
-        Employee e1=new Employee(1,"Rajan",2000,"Rajan@gmail.com");
-        Employee e2=new Employee(2,"Pratik",2000,"Pratik@gmail.com");
-        Employee e3=new Employee(3,"Rahul",3000,"Rahul@gmail.com");
-        Employee e4=new Employee(4,"Nilesh",4000,"Nilesh@gmail.com");
-        em.add(e1);
-        em.add(e2);
-        em.add(e3);
-        em.add(e4);
-        List<Employee> lm=em.stream().sorted((a1,a2)->{
-            if(a1.getSalary()==a2.getSalary()){
-            if((int)(a1.getEmail().charAt(0))<(int)(a2.getEmail().charAt(0))){
-                return 1;
-            }
-            else{
-                
-                return -1;
-            }
-            }
-            return a1.getSalary()-a2.getSalary();
-        }).collect(Collectors.toList());
-        for(Employee e:lm)
-System.out.println(e.getName()); 
-       
-
-
-
-
+    public static void  comparing(List<User> userList){
+        List<User> sortedList = userList.stream()
+        .sorted(Comparator.comparing(User::getId))
+        .collect(Collectors.toList());
+        for(User u: sortedList){
+            System.out.println(u.getId()); 
+        }
     }
+    public static void  grouping(List<User> userList){
+        Map<String,List<User>> groupedList = userList.stream()
+        .collect(Collectors.groupingBy(m->m.getName()));
+        for(Map.Entry<String,List<User>> u: groupedList.entrySet()){
+            System.out.println(u.getKey()); 
+        }
+    }
+    public static void main(String[] args) {
+        
+        List<User> userList = new ArrayList<>(Arrays.asList(
+        new User("John", 33), 
+        new User("Robert", 260), 
+        new User("Mark", 26), 
+        new User("Brandon", 42),
+        new User("Robert", 261), 
+        new User("Mark", 216),
+        new User("Brandon", 412)));
+
+        comparing(userList);
+        grouping(userList);
+        }
+    
 }
