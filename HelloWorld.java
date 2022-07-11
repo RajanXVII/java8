@@ -20,7 +20,7 @@ class User{
 class HelloWorld {
     public static void  comparing(List<User> userList){
         List<User> sortedList = userList.stream()
-        .sorted(Comparator.comparing(User::getId))
+        .sorted(Comparator.comparing(User::getId).reversed())
         .collect(Collectors.toList());
         for(User u: sortedList){
             System.out.println(u.getId()); 
