@@ -25,7 +25,7 @@ class HelloWorld {
         i.add(new Employee(1,20000));
         i.add(new Employee(1,5500));
         //Last third salary
-        Optional<Integer> ne=i.stream().map(e->e.getSalary()).sorted(Comparator.reverseOrder()).skip(2).findFirst();
-        System.out.println(ne.get());
+        Optional<Employee> ne=i.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).skip(2).findFirst();
+        System.out.println(ne.get().getSalary());
     }
 }
